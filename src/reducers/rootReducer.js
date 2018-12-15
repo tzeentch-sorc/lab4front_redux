@@ -1,9 +1,9 @@
 import {combineReducers} from "redux";
-import points from "./points";
+import pointsReducer from "./pointsReducer";
 import loginReducer from './loginReducer'
 
 
 export default combineReducers({
-    points,
+    pointsReducer,
     loginReducer
 });

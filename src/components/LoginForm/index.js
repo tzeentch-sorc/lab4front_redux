@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types'
 import axios from "axios";
 import {setAuthorised, setUnAuth} from "../../actions/login";
+import {setPoints} from "../../actions/setPoints";
+import history from './../../history';
 
 
 class LoginForm extends React.Component{
@@ -16,6 +18,7 @@ class LoginForm extends React.Component{
             password: ''
         };
         this.onSubmit = this.onSubmit.bind(this);
+        this.getInit = this.getInit.bind(this);
     }
 
 
@@ -27,19 +30,21 @@ class LoginForm extends React.Component{
         this.setState({ showResults: false });
     };
 
-    testGet(){
-        axios.get('http://localhost:8080/results/get',{withCredentials:true})
-            .then(res => {
-                alert(res.data);
-            }).catch(err=> alert('error'));
-    }
 
-    logout(){
-        axios.get('http://localhost:8080/logout',{withCredentials:true})
-            .catch(res => {
-                this.props.setUnAuth();
-                alert('ended');
-            });
+    getInit() {
+        axios.get('http://localhost:8080/results/get', {withCredentials: true})
+            .then(res => {
+                if(res.status !== 401) {
+                    this.props.setAuthorised();
+                    this.props.setPoints(res.data);
+                    return true;
+                }
+                else return false;
+            }).catch(err => {
+            this.props.setUnAuth();
+            this.props.setPoints(null);
+            return false;
+        });
     }
 
     onSubmit(e){
@@ -51,12 +56,8 @@ class LoginForm extends React.Component{
             withCredentials: true
         }).then(
             response => {
-                this.props.setAuthorised();
-                if(this.props.isAuthorised){
-                    alert('ada2');
-                };
-                alert('logging out');
-                this.logout();
+                this.getInit();
+                this.hideLogin();
             }
 
         )
@@ -71,7 +72,6 @@ class LoginForm extends React.Component{
         return(
             <div className="login">
                 <button onClick={this.showLogin}>Login</button>
-                <button onClick={this.testGet}>Get</button>
 
                     { this.state.showResults ?
                         <div className="modal" id="id01">
@@ -91,13 +91,15 @@ class LoginForm extends React.Component{
 
                             </div>
                         </form>
-                        </div> : null
+                        </div> : <p className='loginPLS'>+++You need to authorise+++</p>
                     }
 
             </div>
         )
     }
 }
+
+
 
 function mapStateToProps(state){
     return { isAuthorised: state.loginReducer.isAuthorised}
@@ -109,6 +111,8 @@ function mapDispatchToProps(dispatch){
                     },
         setUnAuth: () => {
             dispatch(setUnAuth());
+        }, setPoints: (pointsData) => {
+            dispatch(setPoints(pointsData));
         }
     }
 }

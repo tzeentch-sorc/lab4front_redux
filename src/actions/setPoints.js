@@ -1,7 +1,8 @@
-export const GET_POINTS = 'GET_POINTS';
+export const SET_POINTS = 'SET_POINTS';
 
-export function getPointList() {
+export function setPoints(pointsData) {
     return{
-        type: GET_POINTS
+        type: SET_POINTS,
+        points: pointsData
     }
 }

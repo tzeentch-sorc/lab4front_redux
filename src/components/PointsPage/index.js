@@ -1,40 +1,104 @@
 import React from 'react';
 import {connect} from "react-redux";
-import PointsList from "../PointsList";
-import PropTypes from 'prop-types'
 import axios from "axios";
+import {setAuthorised, setUnAuth} from "../../actions/login";
+import {setPoints} from "../../actions/setPoints";
+import history from "../../history";
 class PointsPage extends React.Component{
-    render() {
-        return (
-            <div>
-                <h1>Points</h1>
+    constructor(props) {
+        super(props);
+        this.testSession = this.testSession.bind(this);
+        this.testSession();
+        this.logout = this.logout.bind(this);
+    }
 
-                <PointsList points={this.props.points}/>
-                <button onClick={this.testGet}>Get</button>
-            </div>
-        );
+    testSession() {
+        axios.get('http://localhost:8080/results/get', {withCredentials: true})
+            .then(res => {
+                if(res.status !== 401) {
+                    this.props.setPoints(res.data);
+                    this.props.setAuthorised();
+                    return true;
+                }
+                else return false;
+            }).catch(err => {
+            this.props.setUnAuth();
+            return false;
+        });
     }
 
 
-    testGet(){
-        axios.get('http://localhost:8080/results/get',{withCredentials:true})
-            .then(res => {
-                alert(JSON.stringify(res) + '\n' + JSON.stringify(document.cookie));
-            }).catch(err=> alert('error'));
+    render() {
+        if(this.props.isAuthorised && (this.props.points !== null || this.props.points !== undefined))
+        return (
+            <div>
+                <h1>Points</h1>
+                <table id="pointTable" className="table">
+                    <tbody>
+                    {
+                        this.props.points.map(
+                            point => {
+                                return(
+                                    <tr key={point.id} className="PointRow">
+                                        <td>
+                                            {point.id}
+                                        </td>
+                                        <td>
+                                            {point.x}
+                                        </td>
+                                        <td>
+                                            {point.y}
+                                        </td>
+                                        <td>
+                                            {point.r}
+                                        </td>
+                                        <td>
+                                            {point.entering}
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                        )
+                    }
+                    </tbody>
+                </table>
+                <button onClick={this.logout}>Logout</button>
+            </div>
+        );
+        else return(
+           history.push('/')
+        )
+    }
+
+
+    logout(){
+        axios.get('http://localhost:8080/logout',{withCredentials:true})
+            .catch(err => {
+                    this.props.setUnAuth();
+
+            });
     }
 
 }
 
 function mapStateToProps(state) {
     return{
-        points: state.points
+        isAuthorised: state.loginReducer.isAuthorised,
+        points: state.pointsReducer.points
     }
 }
 
+function mapDispatchToProps(dispatch){
+    return { setAuthorised: () => {
+            dispatch(setAuthorised());
+        },
+        setUnAuth: () => {
+            dispatch(setUnAuth());
+        },
+        setPoints: (pointsData) => {
+            dispatch(setPoints(pointsData));
+        }
+    }
+}
 
-
-PointsPage.propTypes = {
-    points: PropTypes.array.isRequired //TODO change to arrayOf point(component)
-};
-
-export default connect(mapStateToProps)(PointsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PointsPage);

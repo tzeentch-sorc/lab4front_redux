@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom'
 import {Route, Switch} from 'react-router'
 import PointsPage from './components/PointsPage'
 import Home from "./components/Home";
+import UnAuthPage from "./components/UnAuthPage";
+
 
 
 const App = () => (
@@ -13,13 +15,13 @@ const App = () => (
             <p className="Points link">
                 <Link to="points">Points</Link>
             </p>
-
-            <Switch>
-                <Route exact path='/' component={Home}/>
-                <Route pattern="/points" component={PointsPage}/>
-            </Switch>
-
         </div>
+
+        <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route pattern='/points' component={PointsPage}/>
+            <Route pattern='/unauthorised' component={UnAuthPage}/>
+        </Switch>
     </div>
 
 );
