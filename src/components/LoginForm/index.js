@@ -1,11 +1,9 @@
 import React from 'react';
 import "./LoginForm.css";
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types'
 import axios from "axios";
 import {setAuthorised, setUnAuth} from "../../actions/login";
 import {setPoints} from "../../actions/setPoints";
-import history from './../../history';
 
 
 class LoginForm extends React.Component{
@@ -78,10 +76,10 @@ class LoginForm extends React.Component{
                         <form className="modal-content animate" onSubmit={this.onSubmit}>
 
                             <div className="container">
-                                <label htmlFor="uname"><b>Username</b></label>
+                                <label htmlFor="username"><b>Username</b></label>
                                 <input type="text" value={this.state.username} onChange={this.onChange.bind(this)} placeholder="Enter Username" name="username" required/>
 
-                                <label htmlFor="psw"><b>Password</b></label>
+                                <label htmlFor="password"><b>Password</b></label>
                                 <input type="password" value={this.state.password}  onChange={this.onChange.bind(this)} placeholder="Enter Password" name="password" required/>
 
                                 <button type="submit">Login</button>
@@ -116,8 +114,5 @@ function mapDispatchToProps(dispatch){
         }
     }
 }
-
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import axios from "axios";
 import {setAuthorised, setUnAuth} from "../../actions/login";
 import {setPoints} from "../../actions/setPoints";
-import history from "../../history";
+import UnAuthPage from "../UnAuthPage";
+import PointForm from "../PointForm";
 class PointsPage extends React.Component{
     constructor(props) {
         super(props);
@@ -33,6 +34,9 @@ class PointsPage extends React.Component{
         return (
             <div>
                 <h1>Points</h1>
+                <button onClick={this.logout}>Logout</button>
+                <PointForm/>
+
                 <table id="pointTable" className="table">
                     <tbody>
                     {
@@ -40,9 +44,6 @@ class PointsPage extends React.Component{
                             point => {
                                 return(
                                     <tr key={point.id} className="PointRow">
-                                        <td>
-                                            {point.id}
-                                        </td>
                                         <td>
                                             {point.x}
                                         </td>
@@ -62,11 +63,11 @@ class PointsPage extends React.Component{
                     }
                     </tbody>
                 </table>
-                <button onClick={this.logout}>Logout</button>
+
             </div>
         );
         else return(
-           history.push('/')
+            <UnAuthPage/>
         )
     }
 
@@ -75,7 +76,6 @@ class PointsPage extends React.Component{
         axios.get('http://localhost:8080/logout',{withCredentials:true})
             .catch(err => {
                     this.props.setUnAuth();
-
             });
     }
 
