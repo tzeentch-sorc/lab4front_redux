@@ -1,0 +1,47 @@
+.Navigation{
+    border: solid 2px black;
+    margin: 20px 40px 40px;
+    background-image: linear-gradient(to bottom right, white, grey);
+    /*background-color: #888888;*/
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    font: 14pt sans-serif;
+}
+
+a:hover{
+    text-decoration: underline;
+    background-image: linear-gradient(to bottom right, darkgrey, white);
+}
+
+a:active{
+    text-decoration: underline;
+    background-image: linear-gradient(to bottom right, white, darkgrey);
+}
+
+.home{
+    margin-left: 50px;
+    color: black;
+    padding: 10px;
+    border-right: black 2px solid;
+    border-left: black 2px solid;
+}
+
+.points{
+    margin-right: 50px;
+    border-right: black 2px solid;
+    padding: 10px;
+}
+
+.title{
+    display: inline;
+    text-align: right;
+    margin-right: 50px;
+    font: 14pt sans-serif;
+    float: right;
+    padding-top: 0;
+    margin-top: 0;
+    font-weight: bold;
+}

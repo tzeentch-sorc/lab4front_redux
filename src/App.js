@@ -4,18 +4,18 @@ import {Route, Switch} from 'react-router'
 import PointsPage from './components/PointsPage'
 import Home from "./components/Home";
 import UnAuthPage from "./components/UnAuthPage";
+import './App.css'
 
 
 
 const App = () => (
     <div className="App">
-        <h2>Лабораторная №4</h2>
 
         <div className="Navigation">
             <p className="links">
-                <Link to="/">Home</Link>
-                <br/>
-                <Link to="main">Points</Link>
+                <Link to="/" className="home">Home</Link>
+                <Link to="main" className="points">Points</Link>
+                <p className='title'>Лабораторная работа №4</p>
             </p>
         </div>
 

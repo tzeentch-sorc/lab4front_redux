@@ -15,17 +15,19 @@ input[type=text], input[type=password] {
 }
 
 /* Set a style for all buttons */
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 30%;
-    margin-left: 30%;
-    margin-right: 30%;
-}
+/*button {*/
+    /*background-color: #4CAF50;*/
+    /*color: white;*/
+    /*padding: 14px 20px;*/
+    /*margin: 8px 0;*/
+    /*border: none;*/
+    /*cursor: pointer;*/
+    /*width: 150px;*/
+    /*height: 60px;*/
+    /*margin-left: 30%;*/
+    /*margin-right: 30%;*/
+    /*font: 20pt sans-serif;*/
+/*}*/
 
 /* Add a hover effect for buttons */
 button:hover {
@@ -33,11 +35,11 @@ button:hover {
 }
 
 /* Extra style for the cancel button (red) */
-.cancelbtn {
-    width: 30%;
-    padding: 10px 18px;
-    background-color: #f44336;
-}
+/*.cancelbtn {*/
+    /*padding: 10px 18px;*/
+    /*background-color: #f44336;*/
+    /*width: 300px;*/
+/*}*/
 
 /* Add padding to containers */
 .container {
@@ -76,24 +78,6 @@ button:hover {
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
-/* The Close Button */
-.close {
-    /* Position it in the top right corner outside of the modal */
-    position: absolute;
-    right: 25px;
-    top: 0;
-    color: #000;
-    font-size: 35px;
-    font-weight: bold;
-}
-
-/* Close button on hover */
-.close:hover,
-.close:focus {
-    color: red;
-    cursor: pointer;
-}
-
 /* Add Zoom Animation */
 .animate {
     -webkit-animation: animatezoom 0.6s;
@@ -108,4 +92,27 @@ button:hover {
 @keyframes animatezoom {
     from {transform: scale(0)}
     to {transform: scale(1)}
+}
+
+.loginPLS{
+    font: 16pt sans-serif;
+    margin-bottom: 0;
+}
+
+.loginPLSinfo{
+    font: 12pt "Noto Sans Gothic";
+    margin-top: 3px;
+}
+
+.loginErr{
+    color: #f44336;
+}
+
+.ordinary{
+    background-color: #4CAF50;
+    margin: 20px;
+}
+
+.cancelbtn{
+    background-color: #f44336;
 }
