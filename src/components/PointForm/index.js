@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from "./PointForm.css";
+import "./PointForm.css";
 import axios from "axios";
 import {setAuthorised, setUnAuth} from "../../actions/login";
 import {setPoints} from "../../actions/setPoints";
 import {connect} from "react-redux";
 import MyCanvas from "../MyCanvas";
-import ReactDOM from 'react-dom'
+import MediaQuery from 'react-responsive'
 
 class PointForm extends React.Component{
 
@@ -18,7 +18,6 @@ class PointForm extends React.Component{
                 y: "",
                 r: "1"
             };
-        // this.handleSubmit = this.handleSubmit.bind(this);
         this.testSession = this.testSession.bind(this);
         this.pointFromCanvas = this.pointFromCanvas.bind(this);
     }
@@ -89,145 +88,530 @@ class PointForm extends React.Component{
     }
     render() {
         let error;
+
+        var bigX={
+            display: 'inline-block',
+            textAlign: 'left',
+            float: 'left',
+            marginLeft: '0',
+            paddingLeft: '80px',
+            border: 'none'
+        };
+
+        var smallX={
+            display: 'block',
+            textAlign: 'left'
+        };
+
+        var bigY ={
+            display: 'inline-block',
+            textAlign: 'left',
+            float: 'left',
+            width: '40%',
+            marginTop: '60px',
+            marginRight: '0',
+            border: 'none'
+        };
+
+        var smallY={
+
+        };
+
+        var bigR ={
+            display: 'inline-block',
+            textAlign: 'right',
+            float: 'right',
+            marginRight: '20%',
+            font: '20px sans-serif',
+            marginTop: '30px'
+        };
+
+        var smallR={
+
+        };
+
+        var buttonBig = {
+            padding: '10px 18px',
+            width: '300px',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+            height: '60px',
+            font: '20pt sans-serif',
+
+        }
+
+        var buttonSmall = {
+            padding: '10px 18px',
+            width: '100px',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+            height: '60px',
+            font: '16pt sans-serif',
+        };
+
         if(!this.validateY()){
            error = <p className="Inval" style={{color: 'red'}}>Некорректные данные. Y - число (-3..5)</p>;
         } else error = <p className="Inval" style={{color: 'red'}}> </p>;
         return(
             <div>
-                <form ref={f => this.sbf = f} className="pointForm" onSubmit={this.handleSubmit.bind(this)} >
-                    <label>
-                        Значение Х:
-                    <table className="radioPanelX">
-                        <tbody>
-                        <tr>
-                            <td>
-                                <label>
-                                    <input name="x" type="radio" value="-4" checked={this.state.x === "-4"}
-                                           onChange={this.handleChange.bind(this)}
-                                    />
-                                    -4
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input name="x" type="radio" value="-3" checked={this.state.x === "-3"}
-                                           onChange={this.handleChange.bind(this)}
-                                    />
-                                    -3
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input name="x" type="radio" value="-2" checked={this.state.x === "-2"}
-                                           onChange={this.handleChange.bind(this)}
-                                    />
-                                    -2
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>
-                                    <input name="x" type="radio" value="-1" checked={this.state.x === "-1"}
-                                           onChange={this.handleChange.bind(this)}
-                                    />
-                                    -1
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input name="x" type="radio" value="0" checked={this.state.x === "0"}
-                                           onChange={this.handleChange.bind(this)}
-                                    />
-                                    0
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input name="x" type="radio" value="1" checked={this.state.x === "1"}
-                                           onChange={this.handleChange.bind(this)}
-                                    />
-                                    1
-                                </label>
-                            </td>
-                        </tr>
+                <MediaQuery minDeviceWidth={1176}>
+                    <form ref={f => this.sbf = f} className="pointForm" style={{marginLeft:'15%', marginRight: '15%', width: '70%'}} onSubmit={this.handleSubmit.bind(this)} >
+                        <div style={{height: '200px'}}>
+                            <table className="radioPanelX" style={bigX}>
+                                <thead>Значение Х</thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-4" checked={this.state.x === "-4"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -4
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-3" checked={this.state.x === "-3"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -3
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-2" checked={this.state.x === "-2"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -2
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-1" checked={this.state.x === "-1"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -1
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="0" checked={this.state.x === "0"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            0
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="1" checked={this.state.x === "1"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            1
+                                        </label>
+                                    </td>
+                                </tr>
 
-                        <tr>
-                            <td>
-                                <label>
-                                    <input name="x" type="radio" value="2" checked={this.state.x === "2"}
-                                           onChange={this.handleChange.bind(this)}
-                                    />
-                                    2
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input name="x" type="radio" value="3" checked={this.state.x === "3"}
-                                           onChange={this.handleChange.bind(this)}
-                                    />
-                                    3
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input name="x" type="radio" value="4" checked={this.state.x === "4"}
-                                           onChange={this.handleChange.bind(this)}
-                                    />
-                                    4
-                                </label>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    </label>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="2" checked={this.state.x === "2"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            2
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="3" checked={this.state.x === "3"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            3
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="4" checked={this.state.x === "4"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            4
+                                        </label>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
 
-                    <label htmlFor="y"><b>Значение Y:</b></label>
-                    <input type="text" className={styles.y} value={this.state.y} onChange={this.handleChange.bind(this)} placeholder="Значение Y от -3 до 5" name="y" required/>
-                    {error}
+                            <table style={bigY}>
+                                <thead>Значение Y</thead>
+                                <tbody>
+                                <tr>
+                                    <input type="text" className="y" style={{width: '380px'}} value={this.state.y} onChange={this.handleChange.bind(this)} placeholder="Значение Y от -3 до 5" name="y" required/>
+                                </tr>
+                                <tr>
+                                    {/*radius*/}
+                                    <label style={bigR}>
+                                        Значение R:
+                                        <label>
+                                            <input name="r" type="radio" value="1" checked={this.state.r === "1"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            1
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="2" checked={this.state.r === "2"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            2
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="3" checked={this.state.r === "3"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            3
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="4" checked={this.state.r === "4"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            4
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="5" checked={this.state.r === "5"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            5
+                                        </label>
+                                    </label>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                {error}
+                                </tfoot>
+
+                            </table>
 
 
-                    {/*radius*/}
-                    <label>
-                        Значение R:
-                        <label>
-                            <input name="r" type="radio" value="1" checked={this.state.r === "1"}
-                                   onChange={this.handleChange.bind(this)}
-                            />
-                            1
-                        </label>
-                        <label>
-                            <input name="r" type="radio" value="2" checked={this.state.r === "2"}
-                                   onChange={this.handleChange.bind(this)}
-                            />
-                            2
-                        </label>
-                        <label>
-                            <input name="r" type="radio" value="3" checked={this.state.r === "3"}
-                                   onChange={this.handleChange.bind(this)}
-                            />
-                            3
-                        </label>
-                        <label>
-                            <input name="r" type="radio" value="4" checked={this.state.r === "4"}
-                                   onChange={this.handleChange.bind(this)}
-                            />
-                            4
-                        </label>
-                        <label>
-                            <input name="r" type="radio" value="5" checked={this.state.r === "5"}
-                                   onChange={this.handleChange.bind(this)}
-                            />
-                            5
-                        </label>
-                    </label>
-                    <br/>
-
-                    <MyCanvas setPoint={this.pointFromCanvas} radius={this.state.r} onRef={ref => this.child = ref}/>
-                    <button type="submit">Check</button>
 
 
-                </form>
+                        </div>
+                        <br/>
+                        <div>
+                            <MyCanvas setPoint={this.pointFromCanvas} radius={this.state.r} onRef={ref => this.child = ref}/>
+                        </div>
+                        <br/>
+                        <button type="submit" style={buttonBig}>Check</button>
+
+
+                    </form>
+                </MediaQuery>
+
+
+                <MediaQuery minDeviceWidth={829} maxDeviceWidth={1175}>
+                    <form ref={f => this.sbf = f} className="pointForm" style={{marginLeft:'15%', marginRight: '15%', width: '70%'}} onSubmit={this.handleSubmit.bind(this)} >
+                        <div style={{height: '200px'}}>
+                            <table className="radioPanelX" style={bigX}>
+                                <thead>Значение Х</thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-4" checked={this.state.x === "-4"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -4
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-3" checked={this.state.x === "-3"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -3
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-2" checked={this.state.x === "-2"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -2
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-1" checked={this.state.x === "-1"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -1
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="0" checked={this.state.x === "0"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            0
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="1" checked={this.state.x === "1"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            1
+                                        </label>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="2" checked={this.state.x === "2"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            2
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="3" checked={this.state.x === "3"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            3
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="4" checked={this.state.x === "4"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            4
+                                        </label>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table style={bigY}>
+                                <thead>Значение Y</thead>
+                                <tbody>
+                                <tr>
+                                    <input type="text" className="y" style={{width: '200px'}} value={this.state.y} onChange={this.handleChange.bind(this)} placeholder="Значение Y от -3 до 5" name="y" required/>
+                                </tr>
+                                <tr>
+                                    {/*radius*/}
+                                    <label style={bigR}>
+                                        Значение R:
+                                        <label>
+                                            <input name="r" type="radio" value="1" checked={this.state.r === "1"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            1
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="2" checked={this.state.r === "2"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            2
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="3" checked={this.state.r === "3"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            3
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="4" checked={this.state.r === "4"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            4
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="5" checked={this.state.r === "5"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            5
+                                        </label>
+                                    </label>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                {error}
+                                </tfoot>
+
+                            </table>
+
+
+
+
+                        </div>
+                        <br/>
+                        <div>
+                            <MyCanvas setPoint={this.pointFromCanvas} radius={this.state.r} onRef={ref => this.child = ref}/>
+                        </div>
+                        <br/>
+                        <button type="submit" style={buttonBig}>Check</button>
+
+
+                    </form>
+                </MediaQuery>
+
+                <MediaQuery maxDeviceWidth={828}>
+                    <form ref={f => this.sbf = f} className="pointForm" style={{marginLeft:'15%', marginRight: '15%', width: '70%'}} onSubmit={this.handleSubmit.bind(this)} >
+                        <div style={{height: '200px'}}>
+                            <table className="radioPanelX" style={bigX}>
+                                <thead>Значение Х</thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-4" checked={this.state.x === "-4"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -4
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-3" checked={this.state.x === "-3"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -3
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-2" checked={this.state.x === "-2"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -2
+                                        </label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="-1" checked={this.state.x === "-1"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            -1
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="0" checked={this.state.x === "0"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            0
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="1" checked={this.state.x === "1"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            1
+                                        </label>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="2" checked={this.state.x === "2"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            2
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="3" checked={this.state.x === "3"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            3
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <label>
+                                            <input name="x" type="radio" value="4" checked={this.state.x === "4"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            4
+                                        </label>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <table style={bigY}>
+                                <thead>Значение Y</thead>
+                                <tbody>
+                                <tr>
+                                    <input type="text" className="y" style={{width: '100px'}} value={this.state.y} onChange={this.handleChange.bind(this)} placeholder="Значение Y от -3 до 5" name="y" required/>
+                                </tr>
+                                <tr>
+                                    {/*radius*/}
+                                    <label style={bigR}>
+                                        Значение R:<br/>
+                                        <label>
+                                            <input name="r" type="radio" value="1" checked={this.state.r === "1"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            1
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="2" checked={this.state.r === "2"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            2
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="3" checked={this.state.r === "3"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            3
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="4" checked={this.state.r === "4"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            4
+                                        </label>
+                                        <label>
+                                            <input name="r" type="radio" value="5" checked={this.state.r === "5"}
+                                                   onChange={this.handleChange.bind(this)}
+                                            />
+                                            5
+                                        </label>
+                                    </label>
+                                </tr>
+                                </tbody>
+                                <tfoot>
+                                {error}
+                                </tfoot>
+
+                            </table>
+
+
+
+
+                        </div>
+                        <br/>
+                        <div>
+                            <MyCanvas setPoint={this.pointFromCanvas} radius={this.state.r} onRef={ref => this.child = ref}/>
+                        </div>
+                        <br/>
+                        <button type="submit" style={buttonBig}>Check</button>
+
+
+                    </form>
+                </MediaQuery>
             </div>
         )
     }

@@ -1,4 +1,11 @@
-.y {
-    width: 100px;
-    padding: 0;
+
+table{
+    margin-left: 40px;
+    margin-top: 40px;
+    border: black solid 2px;
+}
+
+td{
+    margin: 10px;
+    padding: 10px;
 }

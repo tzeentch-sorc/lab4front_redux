@@ -28,7 +28,7 @@ class Home extends React.Component{
             height: '60px',
             font: '20pt sans-serif',
 
-        }
+        };
 
         var buttonSmall = {
             padding: '10px 18px',
